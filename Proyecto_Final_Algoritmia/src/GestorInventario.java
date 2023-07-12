@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 
 public class GestorInventario {
@@ -38,8 +39,42 @@ public class GestorInventario {
         System.out.println("El producto no se encuentra en el inventario.");
     }
 
+    public void guardarInventario(String archivo) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(archivo));
+            for (int i = 0; i < totalProductos; i++) {
+                writer.write(productos[i] + "," + preciosCompra[i] + "," + cantidades[i] + "," + preciosVenta[i]);
+                writer.newLine();
+            }
+            writer.close();
+            System.out.println("Inventario guardado con éxito.");
+        } catch (IOException e) {
+            System.out.println("Error al guardar el inventario: " + e.getMessage());
+        }
+    }
+
+    public void cargarInventario(String archivo) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(archivo));
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] datos = linea.split(",");
+                String producto = datos[0];
+                double precioCompra = Double.parseDouble(datos[1]);
+                int cantidad = Integer.parseInt(datos[2]);
+                double precioVenta = Double.parseDouble(datos[3]);
+                agregarProducto(producto, precioCompra, cantidad, precioVenta);
+            }
+            reader.close();
+            System.out.println("Inventario cargado con éxito.");
+        } catch (IOException e) {
+            System.out.println("Error al cargar el inventario: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        String archivo = "inventario.txt";
 
         System.out.print("Ingrese la capacidad máxima del inventario: ");
         int capacidadMaxima = scanner.nextInt();
@@ -47,11 +82,18 @@ public class GestorInventario {
 
         GestorInventario gestor = new GestorInventario(capacidadMaxima);
 
+        // Cargar inventario si existe un archivo guardado
+        File archivoInventario = new File(archivo);
+        if (archivoInventario.exists()) {
+            gestor.cargarInventario(archivo);
+        }
+
         while (true) {
             System.out.println("\n=== GESTOR DE INVENTARIO ===");
             System.out.println("1. Agregar producto");
             System.out.println("2. Buscar producto");
-            System.out.println("3. Salir");
+            System.out.println("3. Guardar inventario");
+            System.out.println("4. Salir");
             System.out.print("Seleccione una opción: ");
             int opcion = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea
@@ -74,6 +116,9 @@ public class GestorInventario {
                     gestor.buscarProducto(productoBuscado);
                     break;
                 case 3:
+                    gestor.guardarInventario(archivo);
+                    break;
+                case 4:
                     System.out.println("¡Hasta luego!");
                     System.exit(0);
                 default:
