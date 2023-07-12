@@ -93,7 +93,8 @@ public class GestorInventario {
             System.out.println("1. Agregar producto");
             System.out.println("2. Buscar producto");
             System.out.println("3. Guardar inventario");
-            System.out.println("4. Salir");
+            System.out.println("4. Cargar inventario");
+            System.out.println("5. Salir");
             System.out.print("Seleccione una opción: ");
             int opcion = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea
@@ -119,6 +120,9 @@ public class GestorInventario {
                     gestor.guardarInventario(archivo);
                     break;
                 case 4:
+                    gestor.cargarInventario(archivo);
+                    break;
+                case 5:
                     System.out.println("¡Hasta luego!");
                     System.exit(0);
                 default:
