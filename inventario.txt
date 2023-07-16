@@ -1,3 +1,0 @@
-Producto: as ,  Precio de Compra: 2443.0 ,  Cantidad: 5, Precio de Venta: 2334.0
-Producto: e ,  Precio de Compra: 3.0 ,  Cantidad: 4, Precio de Venta: 3.4
-Producto: er ,  Precio de Compra: 3.4 ,  Cantidad: 5, Precio de Venta: 3.7
