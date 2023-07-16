@@ -3,7 +3,7 @@ import java.util.Scanner; // Importar la clase Scanner para leer la entrada
 
 public class GestorInventario {
     private String[] productos; //Se declara el Array para almacenar los nombres de los productos , private indica que la variable productos es de tipo privado, lo que significa que solo puede ser accedida desde dentro de la clase   
-                                GestorInventario donde está declarada.
+                                //GestorInventario donde está declarada.
     private double[] preciosCompra; // Array para almacenar los precios de compra de los productos
     private int[] cantidades; // Array para almacenar las cantidades de los productos en inventario
     private double[] preciosVenta; // Array para almacenar los precios de venta de los productos
@@ -18,13 +18,27 @@ public class GestorInventario {
     }
 
     public void agregarProducto(String producto, double precioCompra, int cantidad, double precioVenta) {
-        productos[totalProductos] = producto; // Almacena el nombre del producto en la posición totalProductos del array de productos
-        preciosCompra[totalProductos] = precioCompra; // Almacena el precio de compra en la posición totalProductos del array de preciosCompra
-        cantidades[totalProductos] = cantidad; // Almacena la cantidad en inventario en la posición totalProductos del array de cantidades
-        preciosVenta[totalProductos] = precioVenta; // Almacena el precio de venta en la posición totalProductos del array de preciosVenta
-        totalProductos++; // Incrementa el contador de totalProductos en 1
-        System.out.println("Producto agregado con éxito."); // Muestra un mensaje de éxito
+        for (int i = 0; i < totalProductos; i++) {
+            if (productos[i].equalsIgnoreCase(producto)) {
+                // El producto ya existe en el inventario, se sobrescriben los datos
+                preciosCompra[i] = precioCompra;
+                cantidades[i] = cantidad;
+                preciosVenta[i] = precioVenta;
+                System.out.println("Producto actualizado con éxito.");
+                return;
+            }
+        }
+    
+        // Si el producto no existe, se agrega al inventario
+        productos[totalProductos] = producto;
+        preciosCompra[totalProductos] = precioCompra;
+        cantidades[totalProductos] = cantidad;
+        preciosVenta[totalProductos] = precioVenta;
+        totalProductos++;
+        
+        System.out.println("Producto agregado con éxito.");
     }
+    
 
     public void buscarProducto(String producto) {
         for (int i = 0; i < totalProductos; i++) { // Recorre los productos en el inventario
