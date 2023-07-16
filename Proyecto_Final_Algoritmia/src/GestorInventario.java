@@ -58,7 +58,7 @@ public class GestorInventario {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(archivo)); // Abre un BufferedWriter para escribir en el archivo especificado ,Osea crea un objeto BufferedWriter que se utiliza para escribir en un archivo especificado por la variable archivo. Este objeto se utilizará posteriormente para escribir datos en el archivo utilizando los métodos proporcionados por la clase BufferedWriter.
             for (int i = 0; i < totalProductos; i++) { // Recorre los productos en el inventario
-                writer.write("Producto: " + productos[i] + " ,  Precio de Compra: " +preciosCompra[i] + " ,  Cantidad: " + cantidades[i] + ", Precio de Venta: " + preciosVenta[i]); // Escribe los datos del producto separados por comas en una línea
+                writer.write( productos[i] + " , " + preciosCompra[i] + " , " + cantidades[i] + " , " + preciosVenta[i]); // Escribe los datos del producto separados por comas en una línea
                 writer.newLine(); // Escribe un salto de línea
             }
             writer.close(); // Cierra el BufferedWriter
